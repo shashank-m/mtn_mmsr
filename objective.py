@@ -2,7 +2,7 @@ import numpy as np
 class mmsr:
     def __init__(self,no_users):
         np.random.seed(2)
-        self.user_gain= np.abs(np.random.randn(no_users,no_users))
+        self.user_gain= 5*np.abs(np.random.randn(no_users,no_users))
         self.eavesdropeer_gain= np.abs(np.random.randn(no_users))
 
         self.secrecy_rate=np.zeros(no_users) 
@@ -15,7 +15,7 @@ class mmsr:
             eavesdropper_rate=self.__eavesdropper_rate(i,x)
             secrecy=user_rate-eavesdropper_rate
             self.secrecy_rate[i]=-secrecy
-            
+        # print(np.ndarray.max(self.secrecy_rate))   
         return np.ndarray.max(self.secrecy_rate)
 
     def __user_rate(self,i,x):
