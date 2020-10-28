@@ -3,7 +3,7 @@ import torch
 class mmsr:
     def __init__(self,no_users):
         # np.random.seed(2)
-        torch.manual_seed(2)
+        torch.manual_seed(4)
         self.user_gain= 5*torch.abs(torch.randn(no_users,no_users))
         self.eavesdropeer_gain= torch.abs(torch.randn(no_users))
 

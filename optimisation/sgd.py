@@ -32,7 +32,7 @@ class mmsr_power(nn.Module):
 
 power_finder=mmsr_power()
 
-no_iters=1000
+no_iters=3
 for i in range(no_iters):
 
     loss=power_finder(power_finder.power)
