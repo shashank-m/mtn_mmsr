@@ -32,17 +32,17 @@ class mmsr_power(nn.Module):
 
 power_finder=mmsr_power()
 
-no_iters=3
+no_iters=500
 for i in range(no_iters):
 
     loss=power_finder(power_finder.power)
     loss.backward(retain_graph=True)
 
-    print(loss)
-
     with torch.no_grad():
         for p in power_finder.parameters():
             p -= p.grad*0.1
 
-    power_finder.zero_grad()        
+    power_finder.zero_grad()   
+    if i%50==0:
+        print(loss.item())     
         

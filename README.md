@@ -6,7 +6,7 @@ To use the repo:
 5. pip install .
 
 
-objective.py contains the mmsr problem formulation.
+obj_func folder has objective.py which contains the mmsr problem formulation.
 
 optimise.py is where the mmsr objective function is used along with scipy to find solutions.
-optimisatio folder is for adding our own implementations of different optimisation solutions.
+optimisation folder is for adding our own implementations of different optimisation solutions.
