@@ -4,3 +4,8 @@ To use the repo:
 3. git clone https://github.com/shashank-m/mtn_mmsr.git
 4. cd mtn_mmsr
 5. pip install .
+
+
+
+optimise.py is where the mmsr objective function is used along with scipy to find solutions.
+optimisatio folder is for adding our own implementations of different optimisation solutions.
