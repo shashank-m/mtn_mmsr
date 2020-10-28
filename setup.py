@@ -7,5 +7,5 @@ setup(
    author='Shashank',
    author_email='f20180443@goa.bits-pilani.ac.in',
 #    packages=['foo'],  #same as name
-   install_requires=['numpy', 'scipy'], #external packages as dependencies
+   install_requires=['numpy', 'scipy','torch'], #external packages as dependencies
 )
