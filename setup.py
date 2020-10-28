@@ -6,6 +6,6 @@ setup(
    description='solve mmsr',
    author='Shashank',
    author_email='f20180443@goa.bits-pilani.ac.in',
-#    packages=['foo'],  #same as name
+   packages=setuptools.find_packages(),
    install_requires=['numpy', 'scipy','torch'], #external packages as dependencies
 )
