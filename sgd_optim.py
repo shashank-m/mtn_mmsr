@@ -1,26 +1,9 @@
+from obj_func.objective import mmsr
 import torch
 from torch import nn
-from obj_func.objective import mmsr
-from torch import optim 
 
-
-class modified_mmsr(mmsr):
-    def __init__(self,no_users=10):
-        super().__init__(no_users)
-
-    def objective(self,x):
-        for i in range(self.no_users):
-            user_rate=self._mmsr__user_rate(i,x)
-            eavesdropper_rate=self._mmsr__eavesdropper_rate(i,x)
-            secrecy=user_rate-eavesdropper_rate
-            self.secrecy_rate[i]= -1*secrecy
-
-        return torch.max(self.secrecy_rate)    
-
-no_users=10
-ob=modified_mmsr(no_users)
+ob=mmsr(10)
 loss_function=ob.objective
-# print(dir(ob))
 
 class mmsr_power(nn.Module):
     def __init__(self,min=0,max=50,no_users=10):
@@ -28,10 +11,9 @@ class mmsr_power(nn.Module):
         torch.manual_seed(3)
         self.power=nn.Parameter(torch.abs(torch.randn(no_users))+6)
     def forward(self,x):
-        return loss_function(x)
+        return loss_function(x,False)
 
 power_finder=mmsr_power()
-
 no_iters=500
 for i in range(no_iters):
 
@@ -44,5 +26,4 @@ for i in range(no_iters):
             p=torch.clamp(p,min=0,max=10)
     power_finder.zero_grad()   
     if i%50==0:
-        print(loss.item())     
-        
+        print(loss.item())   

@@ -7,7 +7,6 @@ from numdifftools import Jacobian,Hessian
 ob=mmsr(10)
 torch.manual_seed(2)
 x0=torch.abs(torch.randn(10))+8 # initialise power vector.
-# print(x0.tolist())
 
 def set_bounds(max_power=10):
     bounds=[]
