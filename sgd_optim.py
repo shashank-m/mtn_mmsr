@@ -14,7 +14,7 @@ class mmsr_power(nn.Module):
         return loss_function(x,False)
 
 power_finder=mmsr_power()
-no_iters=500
+no_iters=8000
 for i in range(no_iters):
 
     loss=power_finder(power_finder.power)
@@ -25,5 +25,5 @@ for i in range(no_iters):
             p -= p.grad*0.1
             p=torch.clamp(p,min=0,max=10)
     power_finder.zero_grad()   
-    if i%50==0:
+    if i%400==0:
         print(loss.item())   
