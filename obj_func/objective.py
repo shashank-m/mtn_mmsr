@@ -10,7 +10,7 @@ class mmsr:
         self.user_gain=self.__gain_init()
         self.eavesdropeer_gain=self.__gain_init(user=False)
 
-    def objective(self,x):
+    def objective(self,x,no_grad=False):
 
         for i in range(self.no_users):
             user_rate=self.__user_rate(i,x)
@@ -18,8 +18,11 @@ class mmsr:
             secrecy=user_rate-eavesdropper_rate
             self.secrecy_rate[i]= -1*secrecy
             # print(self.secrecy_rate)
-        # print(np.ndarray.max(self.secrecy_rate))   
-        return torch.max(self.secrecy_rate).item()
+        # print(np.ndarray.max(self.secrecy_rate))  
+        if no_grad:  
+            print('hi')
+            return torch.max(self.secrecy_rate).item()
+        return torch.max(self.secrecy_rate)   
 
     def __user_rate(self,i,x):
         # i is ith user. 
@@ -42,8 +45,8 @@ class mmsr:
             imaginary=torch.randn(1,self.no_users)
 
         combined=torch.stack((real,imaginary),dim=2)
-        complex_iid=torch.view_as_complex(combined)/torch.sqrt(torch.tensor(2.))
-
+        complex_iid=torch.view_as_complex(combined)/torch.sqrt(torch.tensor(2.)) 
+        
         return torch.abs(complex_iid)
     
 

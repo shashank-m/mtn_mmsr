@@ -20,7 +20,7 @@ class modified_mmsr(mmsr):
 no_users=10
 ob=modified_mmsr(no_users)
 loss_function=ob.objective
-print(dir(ob))
+# print(dir(ob))
 
 class mmsr_power(nn.Module):
     def __init__(self,min=0,max=50,no_users=10):

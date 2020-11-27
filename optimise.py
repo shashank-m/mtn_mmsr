@@ -22,5 +22,5 @@ def fun_der(x):
 def fun_hess(x):
     return Hessian(lambda x: ob.objective(x))(x)
     
-sol=minimize(ob.objective,x0,method='trust-constr',bounds=bounds,jac=fun_der,hess=fun_hess)
+sol=minimize(ob.objective,x0,method='L-BFGS-B',bounds=bounds)
 print(sol)
