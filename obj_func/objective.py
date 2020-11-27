@@ -10,17 +10,15 @@ class mmsr:
         self.user_gain=self.__gain_init()
         self.eavesdropeer_gain=self.__gain_init(user=False)
 
-    def objective(self,x,no_grad=False):
+    def objective(self,x,no_grad=True):
 
         for i in range(self.no_users):
             user_rate=self.__user_rate(i,x)
             eavesdropper_rate=self.__eavesdropper_rate(i,x)
             secrecy=user_rate-eavesdropper_rate
             self.secrecy_rate[i]= -1*secrecy
-            # print(self.secrecy_rate)
-        # print(np.ndarray.max(self.secrecy_rate))  
+            
         if no_grad:  
-            print('hi')
             return torch.max(self.secrecy_rate).item()
         return torch.max(self.secrecy_rate)   
 
