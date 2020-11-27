@@ -2,13 +2,13 @@ import numpy as np
 import torch
 class mmsr:
     def __init__(self,no_users):
-        # np.random.seed(2)
         torch.manual_seed(4)
-        self.user_gain= 5*torch.abs(torch.randn(no_users,no_users))
-        self.eavesdropeer_gain= torch.abs(torch.randn(no_users))
 
         self.secrecy_rate=torch.zeros(no_users) 
         self.no_users=no_users
+        
+        self.user_gain=self.__gain_init()
+        self.eavesdropeer_gain=self.__gain_init(user=False)
 
     def objective(self,x):
 
@@ -29,6 +29,25 @@ class mmsr:
         return rate
     def __eavesdropper_rate(self,i,x):
 
-        throughput=torch.sum(self.eavesdropeer_gain*x) - (self.eavesdropeer_gain[i]*x[i])
-        rate= torch.log(1+ ((self.eavesdropeer_gain[i]*x[i])/throughput))
+        throughput=torch.sum(self.eavesdropeer_gain[0]*x) - (self.eavesdropeer_gain[0][i]*x[i])
+        rate= torch.log(1+ ((self.eavesdropeer_gain[0][i]*x[i])/throughput))
         return rate
+
+    def __gain_init(self,user=True):
+        if user:
+            real=torch.randn(self.no_users,self.no_users)
+            imaginary=torch.randn(self.no_users,self.no_users)
+        else:
+            real=torch.randn(1,self.no_users)
+            imaginary=torch.randn(1,self.no_users)
+
+        combined=torch.stack((real,imaginary),dim=2)
+        complex_iid=torch.view_as_complex(combined)/torch.sqrt(torch.tensor(2.))
+
+        return torch.abs(complex_iid)
+    
+
+
+
+
+

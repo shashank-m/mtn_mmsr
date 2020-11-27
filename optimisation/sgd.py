@@ -20,13 +20,13 @@ class modified_mmsr(mmsr):
 no_users=10
 ob=modified_mmsr(no_users)
 loss_function=ob.objective
-
+print(dir(ob))
 
 class mmsr_power(nn.Module):
     def __init__(self,min=0,max=50,no_users=10):
         super().__init__()
         torch.manual_seed(3)
-        self.power=nn.Parameter(torch.abs(torch.randn(no_users)))
+        self.power=nn.Parameter(torch.abs(torch.randn(no_users))+6)
     def forward(self,x):
         return loss_function(x)
 
@@ -41,7 +41,7 @@ for i in range(no_iters):
     with torch.no_grad():
         for p in power_finder.parameters():
             p -= p.grad*0.1
-
+            p=torch.clamp(p,min=0,max=10)
     power_finder.zero_grad()   
     if i%50==0:
         print(loss.item())     
