@@ -9,4 +9,4 @@ To use the repo:
 obj_func folder has objective.py which contains the mmsr problem formulation.
 
 optimise.py is where the mmsr objective function is used along with scipy to find solutions.
-optimisation folder is for adding our own implementations of different optimisation solutions.
+sgd-optim.py has the sgd implementation.
