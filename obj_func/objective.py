@@ -17,7 +17,7 @@ class mmsr:
             eavesdropper_rate=self.__eavesdropper_rate(i,x)
             secrecy=user_rate-eavesdropper_rate
             self.secrecy_rate[i]= -1*secrecy
-            
+        # print(self.secrecy_rate)    
         if no_grad:  
             return torch.max(self.secrecy_rate).item()
         return torch.max(self.secrecy_rate)   
@@ -38,7 +38,7 @@ class mmsr:
         if user:
             real=torch.randn(self.no_users,self.no_users)
             imaginary=torch.randn(self.no_users,self.no_users)
-        else:
+        else: # for eavesdropper. 
             real=torch.randn(1,self.no_users)
             imaginary=torch.randn(1,self.no_users)
 

@@ -3,6 +3,7 @@ import numpy as np
 from scipy.optimize import minimize
 import torch 
 from numdifftools import Jacobian,Hessian
+import sys
 
 ob=mmsr(10)
 torch.manual_seed(2)
@@ -20,6 +21,7 @@ def fun_der(x):
 
 def fun_hess(x):
     return Hessian(lambda x: ob.objective(x))(x)
-    
-sol=minimize(ob.objective,x0,method='L-BFGS-B',bounds=bounds)
+   
+sol=minimize(ob.objective,x0,method=sys.argv[1],bounds=bounds,jac=fun_der)
 print(sol)
+
